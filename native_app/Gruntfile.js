@@ -34,7 +34,7 @@ module.exports = (grunt) => {
           expand: true,
           cwd: '',
           src: ['index.ios.js'],
-          dest: 'web/build',
+          dest: '../public/web/build',
           rename: function (dest, src) {
             var finallocation = path.join(dest, src);
             finallocation = finallocation.replace('ios.js', 'ios_build.js');
@@ -65,7 +65,7 @@ module.exports = (grunt) => {
       all: {
         files: [{
           expand: true,
-          cwd: 'web/build',
+          cwd: '../public/web/build',
           src: ['**/*_build.js'],
           dest: '',
           rename: function (dest, src) {
@@ -112,7 +112,7 @@ module.exports = (grunt) => {
       // },
       js: {
         files: ['**/*.js','**/*.jsx'],
-        tasks: ['env', 'browserify', 'newer:uglify'],
+        tasks: ['env', 'browserify', 'uglify'],
       },
     },
   });
