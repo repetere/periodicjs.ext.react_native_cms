@@ -8,6 +8,7 @@ React Native Based CMS
 ```
 npm install -g react-native-cli
 npm install react-web-cli -g
+npm install --global gulp-cli
 ```
 
 ## Installation

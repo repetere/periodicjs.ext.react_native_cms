@@ -12,7 +12,8 @@
     },
     "ecmaFeatures": {
         "ecmaVersion": 6,
-        "jsx": true
+        "jsx": true,
+        "sourceType": "module"
     },
     "rules": {
         "jsx-quotes": ["error", "prefer-double"],

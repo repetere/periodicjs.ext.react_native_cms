@@ -9,15 +9,18 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
+// import { Router, Scene } from 'react-native-router-flux';
+
 
 class react_native_cms extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Native CMS!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
@@ -51,3 +54,10 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('react_native_cms', () => react_native_cms);
+if(Platform.OS == 'web'){
+  var app = document.createElement('div');
+  document.body.appendChild(app);
+  AppRegistry.runApplication('react_native_cms', {
+    rootTag: app,
+  });
+}
