@@ -1,13 +1,19 @@
-# periodicjs.ext.dblogger
+# periodicjs.ext.react_native_cms
 
-Database Error logger will log winstonjs errors to a mongo databse
+React Native Based CMS
 
- [API Documentation](https://github.com/typesettin/periodicjs.ext.dblogger/blob/master/doc/api.md)
+ [API Documentation](https://github.com/typesettin/periodicjs.ext.react_native_web/blob/master/doc/api.md)
+
+## Requirements
+```
+npm install -g react-native-cli
+npm install react-web-cli -g
+```
 
 ## Installation
 
 ```
-$ npm install periodicjs.ext.dblogger
+$ npm install periodicjs.ext.react_native_web
 ```
 
 ## Usage & Configuration
@@ -17,7 +23,7 @@ This extension will either log errors to a collection in your periodic db or an 
 ### Example Database Logger Extension Configuration
 
 **settings.json**
-`content/config/extensions/periodicjs.ext.dblogger/settings.json`
+`content/config/extensions/periodicjs.ext.react_native_web/settings.json`
 
 ```json
 {
