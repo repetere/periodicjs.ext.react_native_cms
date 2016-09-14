@@ -1,19 +1,19 @@
-'use strict';
+// 'use strict';
 
-var Extensions = require('periodicjs.core.extensions'),
-	ExtensionCore = new Extensions({
-		dirname: __dirname
-	});
+// var Extensions = require('periodicjs.core.extensions'),
+// 	ExtensionCore = new Extensions({
+// 		dirname: __dirname
+// 	});
 
-ExtensionCore.install({
-	},
-	function (err, status) {
-		if (err) {
-			throw new Error(err);
-		}
-		else {
-			console.log(status);
-		}
-	});
-// $ npm install --skip_ext_conf
-// $ npm intsall --enable_ext
+// ExtensionCore.install({
+// 	},
+// 	function (err, status) {
+// 		if (err) {
+// 			throw new Error(err);
+// 		}
+// 		else {
+// 			console.log(status);
+// 		}
+// 	});
+// // $ npm install --skip_ext_conf
+// // $ npm intsall --enable_ext

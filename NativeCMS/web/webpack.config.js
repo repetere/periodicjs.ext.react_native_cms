@@ -8,7 +8,7 @@ var HasteResolverPlugin = require('haste-resolver-webpack-plugin');
 var IP = '0.0.0.0';
 var PORT = 3000;
 var NODE_ENV = process.env.NODE_ENV;
-var ROOT_PATH = path.resolve(__dirname, '../../NativeCMS');
+var ROOT_PATH = path.resolve(__dirname, '..');
 var PROD = 'production';
 var DEV = 'development';
 let isProd = NODE_ENV === 'production';
@@ -20,16 +20,13 @@ var config = {
   },
 };
 
-
-console.log('config',config)
-console.log('path.join(__dirname, npm install webpack -goutput)',path.join(__dirname, 'output'))
 module.exports = {
   ip: IP,
   port: PORT,
   devtool: 'source-map',
   resolve: {
     alias: {
-      'react-native': 'react-web',
+      'react-native': 'ReactWeb',
     },
     extensions: ['', '.js', '.jsx'],
   },
@@ -41,7 +38,7 @@ module.exports = {
     config.paths.index,
   ],
   output: {
-    path: path.join(__dirname, 'output'),
+    path: path.join(__dirname, '../../public/web/output'),
     filename: 'bundle.js'
   },
   plugins: [
@@ -61,10 +58,7 @@ module.exports = {
     new HtmlPlugin(),
   ],
   module: {
-    loaders: [{ 
-      test: /\.(jpe?g|png|gif|svg)$/, 
-      loader: 'file', 
-    }, {
+    loaders: [{
       test: /\.json$/,
       loader: 'json',
     }, {
@@ -73,10 +67,10 @@ module.exports = {
       include: [config.paths.src],
       exclude: [/node_modules/]
     }, {
-      test: /\.jsx?$/,
+      test: /\.js?$/,
       loader: 'babel',
       query: {
-        presets: ['es2015', 'react', 'stage-1']
+        presets: ['es2015', 'react', 'latest']
       },
       include: [config.paths.src],
       exclude: [/node_modules/]
