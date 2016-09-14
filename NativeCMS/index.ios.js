@@ -13,6 +13,9 @@ import {
   Platform
 } from 'react-native';
 import TestPage from './app/components/TestPage';
+import {
+  Button
+} from 'react-native-elements';
 
 class NativeCMS extends Component {
   render() {
@@ -26,8 +29,30 @@ class NativeCMS extends Component {
         </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+          Cmd+D or shake for dev menuss
         </Text>
+        <Button
+          title='BUTTON' />
+        <Button
+          raised
+          icon={{name: 'cached'}}
+          title='RAISED WITH ICON' />
+
+        <Button
+          small
+          iconRight
+          icon={{name: 'code', type: 'font-awesome'}}
+          title='SMALL WITH RIGHT ICON' />
+
+        <Button
+          small
+          icon={{name: 'envira', type: 'font-awesome'}}
+          title='SMALL WITH RIGHT ICON' />
+
+        <Button
+          small
+          icon={{name: 'squirrel', type: 'octicon', style: {marginLeft: 20}}}
+          title='OCTICON' />
         <TestPage/>
       </View>
     );
@@ -55,6 +80,7 @@ const styles = StyleSheet.create({
 
 AppRegistry.registerComponent('NativeCMS', () => NativeCMS);
 if (Platform.OS == 'web') {
+  require("./web/custom_node_modules/react-native-vector-icons/css/stylesheet.css");
   var app = document.createElement('div');
   document.body.appendChild(app);
   AppRegistry.runApplication('NativeCMS', {

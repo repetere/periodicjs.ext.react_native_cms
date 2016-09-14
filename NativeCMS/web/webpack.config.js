@@ -74,6 +74,48 @@ module.exports = {
       },
       include: [config.paths.src],
       exclude: [/node_modules/]
-    }]
+    }, {
+      test: /\.js?$/,
+      loader: 'babel',
+      query: {
+        presets: [ 'es2015', 'react', 'latest' ],
+        plugins: ["transform-class-properties","syntax-object-rest-spread","transform-object-rest-spread"]
+      },
+      //add your modules here
+      include: [
+        path.join(ROOT_PATH, 'node_modules/react-native-vector-icons'),
+        path.join(ROOT_PATH, 'node_modules/react-native-elements')
+      ],
+      // exclude:[/\.png$/gi]
+    },{
+      // Match woff2 in addition to patterns like .woff?v=1.1.1.
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url',
+      query: {
+        limit: 50000,
+        mimetype: 'application/font-woff',
+        name: './fonts/[hash].[ext]'
+      },
+      include: [
+        path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
+      ]
+    },{
+      test: /\.ttf$|\.eot$/,
+      loader: 'file',
+      query: {
+        // name: 'font/[hash].[ext]'
+        name: 'file/[hash].[ext]'
+      },
+      include: [
+        path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
+      ]
+    },{ 
+      test: /\.css$/, 
+      loader: "style-loader!css-loader",
+      include: [
+        path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
+      ]
+    }
+    ]
   }
 };
