@@ -13,13 +13,54 @@ import {
 } from 'react-native';
 import TestPage from '../TestPage';
 import {
-  Button
+  Button, SocialIcon, List, ListItem, ListView, PricingCard
 } from 'react-native-elements';
 
+
+const list = [
+  {
+    name: 'Amy Farha',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+    subtitle: 'Vice President'
+  },
+  {
+    name: 'Chris Jackson',
+    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+    subtitle: 'Vice Chairman'
+  }
+]
+
+
 class Main extends Component {
+  constructor(){
+    super(...arguments);
+    this.state = {
+      ranattr:'ok',
+      dataSource:list,
+    };
+  }
+  renderRow (rowData, sectionID) {
+    return (
+      <ListItem
+        roundAvatar
+        key={sectionID}
+        title={rowData.name}
+        subtitle={rowData.subtitle}
+        avatar={rowData.avatar_url}
+      />
+    )
+  }
   render() {
     return (
       <View style={styles.container}>
+        <Text>{JSON.stringify(this.state)}</Text>
+        <PricingCard
+          color='red'
+          title='Free'
+          price='$0'
+          info={['1 User', 'Basic Support', 'All Core Features']}
+          button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
+        />
         <Text style={styles.welcome}>
           Now Main to React Native oh finally ?!
         </Text>

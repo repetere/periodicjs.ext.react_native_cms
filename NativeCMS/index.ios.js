@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import Main from './app/components/Main';
 
-class NativeCMS extends Main{
+class NativeCMS extends Component{
+  render(){
+    return <Main />;
+  }
 }
 
 AppRegistry.registerComponent('NativeCMS', () => NativeCMS);

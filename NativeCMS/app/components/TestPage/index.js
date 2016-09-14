@@ -4,14 +4,20 @@ import {
   Text,
   View,
 } from 'react-native';
-
+import {
+  // SocialIcon,
+} from 'react-native-elements';
 class TestPage extends Component {
   render(){
     return(<View style={styles.container}>
         <Text style={styles.welcome}>
          some page
         </Text>
-      </View>);
+        
+        
+      </View>
+      
+      );
   }
 }
 
