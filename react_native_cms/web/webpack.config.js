@@ -58,7 +58,10 @@ module.exports = {
     new HtmlPlugin(),
   ],
   module: {
-    loaders: [{
+    loaders: [
+            { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
+
+      {
       test: /\.json$/,
       loader: 'json',
     }, {
@@ -70,10 +73,28 @@ module.exports = {
       test: /\.jsx?$/,
       loader: 'babel',
       query: {
-        presets: ['es2015', 'react', 'stage-1']
+        presets: [ 'es2015', 'react', 'latest']
       },
       include: [config.paths.src],
       exclude: [/node_modules/]
+    }, {
+      test: /\.js?$/,
+      loader: 'babel',
+      query: {
+        presets: [ 'es2015', 'react', 'latest' ],
+        plugins: ["transform-class-properties","syntax-object-rest-spread","transform-object-rest-spread"]
+
+      },
+      include: [
+        path.join(ROOT_PATH, 'node_modules/react-native-circle-checkbox'),
+        path.join(ROOT_PATH, 'node_modules/native-base'),
+        path.join(ROOT_PATH, 'node_modules/react-native-vector-icons'),
+        path.join(ROOT_PATH, 'node_modules/react-native-easy-grid'),
+        path.join(ROOT_PATH, 'node_modules/react-native-keyboard-aware-scroll-view'),
+        
+        path.join(ROOT_PATH, 'node_modules/react-native-checkbox/checkbox.js')
+      ],
+      // exclude:[/\.png$/gi]
     }]
   }
 };
