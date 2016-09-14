@@ -38,7 +38,7 @@ module.exports = {
     config.paths.index,
   ],
   output: {
-    path: path.join(__dirname, 'output'),
+    path: path.join(__dirname, '../../public/web'),
     filename: 'bundle.js'
   },
   plugins: [
