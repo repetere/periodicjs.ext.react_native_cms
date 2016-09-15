@@ -6,116 +6,126 @@
 
 import React, { Component } from 'react';
 import {
-  StyleSheet,
+ StyleSheet,
   Text,
   View,
-  Platform
+  Navigator,
+  TouchableHighlight
 } from 'react-native';
-import TestPage from '../TestPage';
 import {
   Button, SocialIcon, List, ListItem, ListView, PricingCard
 } from 'react-native-elements';
+//https://medium.com/@dabit3/react-native-navigator-navigating-like-a-pro-in-react-native-3cb1b6dc1e30#.a512hghmd
 
-
-const list = [
-  {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Vice President'
+var Main = React.createClass({
+ 
+  /* PLAY AROUND WITH ANY OF THESE CONFIGURATIONS:
+  PushFromRight
+  FloatFromRight
+  FloatFromLeft
+  FloatFromBottom
+  FloatFromBottomAndroid
+  FadeAndroid
+  HorizontalSwipeJump
+  HorizontalSwipeJumpFromRight
+  VerticalUpSwipeJump
+  VerticalDownSwipeJump */
+  
+   renderScene(route, navigator) {
+    return <route.component navigator={navigator} {...route.passProps} />
+	 },
+   
+  configureScene(route, routeStack){
+    if(route.type == 'Modal') {
+    	return Navigator.SceneConfigs.FloatFromBottom;
+    }
+  	return Navigator.SceneConfigs.HorizontalSwipeJump; 
   },
-  {
-    name: 'Chris Jackson',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman'
-  }
-]
-
-
-class Main extends Component {
-  constructor(){
-    super(...arguments);
-    this.state = {
-      ranattr:'ok',
-      dataSource:list,
-    };
-  }
-  renderRow (rowData, sectionID) {
-    return (
-      <ListItem
-        roundAvatar
-        key={sectionID}
-        title={rowData.name}
-        subtitle={rowData.subtitle}
-        avatar={rowData.avatar_url}
-      />
-    )
-  }
+  
   render() {
     return (
-      <View style={styles.container}>
-        <Text>{JSON.stringify(this.state)}</Text>
-        <PricingCard
-          color='red'
-          title='Free'
-          price='$0'
-          info={['1 User', 'Basic Support', 'All Core Features']}
-          button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
-        />
-        <Text style={styles.welcome}>
-          Now Main to React Native oh finally ?!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js and hot reloading 111
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menuss
-        </Text>
-        <Button
-          title='BUTTON' />
+      <Navigator
+      	configureScene={ this.configureScene.bind(this) }
+      	style={{ flex:1 }}
+        initialRoute={{ component: Main2 }}
+        renderScene={ this.renderScene.bind(this) } />
+    )
+  }
+});
+
+var Main2 = React.createClass({
+  _navigate(name, type='Normal') {
+  	this.props.navigator.push({
+    	component: Home,
+      passProps: {
+      	name: name
+      },
+      type: type
+    })
+  },
+	render() {    
+    return (
+    	<View style={ styles.container }>
+      	<Text style={ styles.heading }>Hello from Main</Text>
+ 		
         <Button
           raised
+          onPress={ () => this._navigate('YOYOYOYOYO','')}
           icon={{name: 'cached'}}
-          title='RAISED WITH ICON' />
+          title='GO To Home' />
 
         <Button
+          onPress={ () => this._navigate('YOYOYOYOYO', 'Modal') }
           small
-          iconRight
-          icon={{name: 'code', type: 'font-awesome'}}
-          title='SMALL WITH RIGHT ICON' />
+          icon={{name: 'squirrel', type: 'font-awesome' }}
+          title='Show Modal' />
+      </View>
+    )
+  }
+})
 
-        <Button
-          small
-          icon={{name: 'envira', type: 'font-awesome'}}
-          title='SMALL WITH RIGHT ICON' />
-
-        <Button
-          small
-          icon={{name: 'squirrel', type: 'octicon', style: {marginLeft: 20}}}
-          title='OCTICON' />
-        <TestPage/>
+class Home extends Component {  
+  render() {
+    return (
+    	<View style={ styles.container }>
+      	<Text style={ styles.heading }>Hello from { this.props.name }</Text>
+          <Button
+            onPress={ () => this.props.navigator.pop() }
+            small
+            icon={{name: 'envira', type: 'font-awesome'}}
+            title='GO BACK' />      	
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
+   	marginTop: 80
+  },
+  heading: {
+  	fontSize:22,
+    marginBottom:10
+  },
+  button: {
+  	height:60,
     justifyContent: 'center',
+    backgroundColor: '#efefef',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'center'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  button2: {
+  	height:60,
+    marginTop: 15,
+    justifyContent: 'center',
+    backgroundColor: '#efefef',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  buttonText: {
+  	fontSize:20
+  }
 });
 
 export default Main;
