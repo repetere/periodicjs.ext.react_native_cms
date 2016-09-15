@@ -16,7 +16,16 @@ import {
   Button, SocialIcon, List, ListItem, ListView, PricingCard
 } from 'react-native-elements';
 //https://medium.com/@dabit3/react-native-navigator-navigating-like-a-pro-in-react-native-3cb1b6dc1e30#.a512hghmd
-
+// https://github.com/redbaron76/navbar-native 
+// https://github.com/react-native-community/react-native-navbar
+// https://github.com/Purii/react-native-tableview-simple
+// https://github.com/d-a-n/react-native-modal-picker
+// https://github.com/magicismight/react-native-root-modal
+// https://github.com/bokuweb/react-native-universal-modal/blob/master/index.js
+// https://github.com/maxs15/react-native-modalbox
+//https://github.com/aksonov/react-native-tabs
+// https://github.com/exponentjs/react-native-tab-navigator
+// https://github.com/aksonov/react-native-tabs
 var Main = React.createClass({
  
   /* PLAY AROUND WITH ANY OF THESE CONFIGURATIONS:
@@ -71,18 +80,34 @@ var Main2 = React.createClass({
         <Button
           raised
           onPress={ () => this._navigate('YOYOYOYOYO','')}
-          icon={{name: 'cached'}}
+          icon={{name: 'rss', type: 'zocial'}}
           title='GO To Home' />
 
         <Button
           onPress={ () => this._navigate('YOYOYOYOYO', 'Modal') }
           small
-          icon={{name: 'squirrel', type: 'font-awesome' }}
+          icon={{name: 'squirrel', type: 'octicon' }}
           title='Show Modal' />
+
+        <Button
+          small
+          iconRight
+          icon={{name: 'code'}}
+          title='Code' />
+        <Button
+          small
+          iconRight
+          icon={{name: 'share-apple', type: 'evilicon'}}
+          title='Share Apple' />
+        <Button
+          small
+          iconRight
+          icon={{name: 'battery-full', type: 'foundation'}}
+          title='Battery Full' />
       </View>
     )
   }
-})
+});
 
 class Home extends Component {  
   render() {

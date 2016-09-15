@@ -92,7 +92,7 @@ module.exports = {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       loader: 'url',
       query: {
-        limit: 50000,
+        limit: 500000,
         mimetype: 'application/font-woff',
         name: './fonts/[hash].[ext]'
       },
@@ -100,12 +100,20 @@ module.exports = {
         path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
       ]
     },{
-      test: /\.ttf$|\.eot$/,
-      loader: 'file',
+      // Match woff2 in addition to patterns like .woff?v=1.1.1.
+      test: /\.ttf(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url',
       query: {
-        // name: 'font/[hash].[ext]'
-        name: 'file/[hash].[ext]'
+        limit: 5000000,
+        // mimetype: 'application/font-woff',
+        name: './fonts/[hash].[ext]'
       },
+      include: [
+        path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
+      ]
+    },{
+      test: /\.(eot|ttf|svg|png|jpg)$/,
+      loader: 'url-loader?limit=1000000&name=[name]-[hash].[ext]',
       include: [
         path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
       ]
@@ -115,7 +123,15 @@ module.exports = {
       include: [
         path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
       ]
-    }
+    },{
+      test: /\.png$/,
+      loader: 'url?limit=100000&mimetype=image/png',
+      // include: config.paths.demo,
+    }, {
+      test: /\.jpg$/,
+      loader: 'file',
+      // include: config.paths.demo,
+    },
     ]
   }
 };
