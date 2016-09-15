@@ -15,6 +15,7 @@ AppRegistry.registerComponent('Main', () => Main);
 if (Platform.OS == 'web') {
   require('./web/custom_node_modules/react-native-vector-icons/css/stylesheet.css');
   var app = document.createElement('div');
+  app.setAttribute('id','NativeCMS');
   document.body.appendChild(app);
   AppRegistry.runApplication('Main', {
     rootTag: app,

@@ -5,16 +5,31 @@ import {
   View,
 } from 'react-native';
 import {
-  // SocialIcon,
+  Button,Card, SocialIcon, List, ListItem, ListView, PricingCard
 } from 'react-native-elements';
+
 class TestPage extends Component {
   render(){
     return(<View style={styles.container}>
-        <Text style={styles.welcome}>
-         some page
-        </Text>
-        
-        
+        <Card
+          title='CARD WITH DIVIDER'>
+          <Text>
+          just some text
+          </Text>
+          {    /* comment */ }
+        </Card>
+        <PricingCard
+          color='red'
+          title='Free'
+          price='$0'
+          info={['1 User', 'Basic Support', 'All Core Features']}
+          button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
+        />
+        <Button
+          small
+          iconRight
+          icon={{name: 'code', type: 'font-awesome'}}
+          title='SMALL WITH RIGHT ICON' />
       </View>
       
       );

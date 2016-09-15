@@ -26,6 +26,9 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     alias: {
+      'react-native/Libraries/EventEmitter/EventEmitter': 'events',
+      // 'react-native/Libraries/EventEmitter/EventEmitter': 'react-native-eventemitter',      
+      'react-native-simple-router/.styles': 'react-native-simple-router/styles.ios',
       'react-native': 'ReactWeb',
     },
     extensions: ['', '.js', '.jsx'],
@@ -84,6 +87,8 @@ module.exports = {
       //add your modules here
       include: [
         path.join(ROOT_PATH, 'node_modules/react-native-vector-icons'),
+        // path.join(ROOT_PATH, 'node_modules/react-native-simple-router'),
+        // path.join(ROOT_PATH, 'node_modules/react-native-eventemitter'),
         path.join(ROOT_PATH, 'node_modules/react-native-elements')
       ],
       // exclude:[/\.png$/gi]
@@ -100,14 +105,16 @@ module.exports = {
         path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
       ]
     },{
-      test: /\.ttf$|\.eot$/,
+      // test: /\.ttf$|\.eot$/,
+      test: /\.(jpe?g|png|gif|svg|ttf|eot)$/i,
       loader: 'file',
       query: {
         // name: 'font/[hash].[ext]'
         name: 'file/[hash].[ext]'
       },
       include: [
-        path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons')
+        path.join(ROOT_PATH, 'web/custom_node_modules/react-native-vector-icons'),
+        // path.join(ROOT_PATH, 'web/custom_node_modules/react-native-simple-router')
       ]
     },{ 
       test: /\.css$/, 

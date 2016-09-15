@@ -7,115 +7,71 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  Platform
+  Navigator,
+  Platform,
+  TouchableHighlight
 } from 'react-native';
-import TestPage from '../TestPage';
+
+// import TestPage from '../TestPage';
+// import NavigationExample from '../NavigationExample'; 
+// //https://medium.com/@dabit3/react-native-navigator-navigating-like-a-pro-in-react-native-3cb1b6dc1e30#.a512hghmd
+// //https://facebook.github.io/react-native/docs/using-navigators.html
+// // https://facebook.github.io/react-native/docs/navigation.html
+// // https://rnplay.org/apps/-
+// // http://stackoverflow.com/questions/37395749/react-native-dynamic-listview-master-detail
 import {
-  Button, SocialIcon, List, ListItem, ListView, PricingCard
+  Button,Card, SocialIcon, List, ListItem, ListView, PricingCard,
+  Text,
 } from 'react-native-elements';
+import MyScene from '../MyScene';
 
+class SimpleNavigationApp extends Component {
+  render() {
+    return <Text>testing text</Text>;
+    // return (
+    //   <Navigator
+    //     initialRoute={{ title: 'My Initial Scene', index: 0 }}
+    //     renderScene={(route, navigator) =>{
+    //       return (
+    //         <MyScene
+    //           title={route.title}
 
-const list = [
-  {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Vice President'
-  },
-  {
-    name: 'Chris Jackson',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    subtitle: 'Vice Chairman'
+    //           // Function to call when a new scene should be displayed           
+    //           onForward={ () => {    
+    //             const nextIndex = route.index + 1;
+    //             navigator.push({
+    //               title: 'Scene ' + nextIndex,
+    //               index: nextIndex,
+    //             });
+    //           }}
+
+    //           // Function to call to go back to the previous scene
+    //           onBack={() => {
+    //             if (route.index > 0) {
+    //               navigator.pop();
+    //             }
+    //           }}
+    //         />
+    //       ); 
+    //       }
+    //     }
+    //   />
+    // );
   }
-]
+}
 
-
+// The Router wrapper
 class Main extends Component {
-  constructor(){
-    super(...arguments);
-    this.state = {
-      ranattr:'ok',
-      dataSource:list,
-    };
-  }
-  renderRow (rowData, sectionID) {
-    return (
-      <ListItem
-        roundAvatar
-        key={sectionID}
-        title={rowData.name}
-        subtitle={rowData.subtitle}
-        avatar={rowData.avatar_url}
-      />
-    )
-  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>{JSON.stringify(this.state)}</Text>
-        <PricingCard
-          color='red'
-          title='Free'
-          price='$0'
-          info={['1 User', 'Basic Support', 'All Core Features']}
-          button={{ title: 'GET STARTED', icon: 'flight-takeoff' }}
-        />
-        <Text style={styles.welcome}>
-          Now Main to React Native oh finally ?!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js and hot reloading 111
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menuss
-        </Text>
-        <Button
-          title='BUTTON' />
-        <Button
-          raised
-          icon={{name: 'cached'}}
-          title='RAISED WITH ICON' />
-
-        <Button
-          small
-          iconRight
-          icon={{name: 'code', type: 'font-awesome'}}
-          title='SMALL WITH RIGHT ICON' />
-
-        <Button
-          small
-          icon={{name: 'envira', type: 'font-awesome'}}
-          title='SMALL WITH RIGHT ICON' />
-
-        <Button
-          small
-          icon={{name: 'squirrel', type: 'octicon', style: {marginLeft: 20}}}
-          title='OCTICON' />
-        <TestPage/>
-      </View>
+      <SimpleNavigationApp
+        
+      />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
 
 export default Main;
