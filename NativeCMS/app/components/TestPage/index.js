@@ -13,12 +13,10 @@ class TestPage extends Component {
         <Text style={styles.welcome}>
          some page
         </Text>
-        
-        
       </View>
-      
       );
   }
 }
+
 
 export default TestPage;

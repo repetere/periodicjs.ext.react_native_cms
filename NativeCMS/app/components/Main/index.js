@@ -54,10 +54,10 @@ var Main = React.createClass({
   render() {
     return (
       <Navigator
-      	configureScene={ this.configureScene.bind(this) }
+      	configureScene={ this.configureScene }
       	style={{ flex:1 }}
         initialRoute={{ component: Main2 }}
-        renderScene={ this.renderScene.bind(this) } />
+        renderScene={ this.renderScene } />
     )
   }
 });
@@ -105,7 +105,7 @@ var Main2 = React.createClass({
           icon={{name: 'battery-full', type: 'foundation'}}
           title='Battery Full' />
       </View>
-    )
+    );
   }
 });
 
