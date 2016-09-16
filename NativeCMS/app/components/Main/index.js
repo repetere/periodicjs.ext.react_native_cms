@@ -25,11 +25,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 class Main extends Component{ 
   constructor(props){
     super(props);
-    let tabs = configExtensions.standard;//.splice(3, 0, configExtensions.more);
-    console.log(tabs);
+    let tabs = configExtensions.standard.concat();//.splice(3, 0, configExtensions.more);
+    tabs.splice(4, 0, configExtensions.more).slice(0,4);
     this.state = { 
       page:'home',
-      tabBarExtensions: tabs,
+      tabBarExtensions: tabs.slice(0,5),
     };
   }
   _onSelect(el){
@@ -39,13 +39,14 @@ class Main extends Component{
     });
   }
   render() {
+    console.log('this.state',this.state)
     let self = this;
     return (
       <View style={styles.container}>
         <Tabs selected={this.state.page} 
           style={styles.tabBar}
           onSelect={this._onSelect.bind(this)}>
-            {configExtensions.standard.map((ext)=>{
+            {this.state.tabBarExtensions.map((ext)=>{
               return  (<TabIcon 
               key={ext.name} 
               name={ext.name} 
@@ -53,7 +54,6 @@ class Main extends Component{
               onSelect={this._onSelect.bind(self)}
               />);
             })}
-      
             
         </Tabs>
           <Text style={styles.welcome}>

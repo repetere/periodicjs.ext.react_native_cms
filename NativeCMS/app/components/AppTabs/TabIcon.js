@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Text,
@@ -23,15 +23,17 @@ class TabIcon extends Component{
   render() {
     let iconName = (this.props.selected) ? this.props.icon.initial : this.props.icon.initial; //this.props.icon.selected;
     let iconColor = (this.props.selected) ? colorStyles.active : colorStyles.nav;
+    console.log('iconColor',iconColor);
     return (
-      <TouchableHighlight onPress={()=>{
-        this.props.onSelect({ props:this.props, });
-      }}>
+      <TouchableOpacity 
+        onPress={()=>{
+          this.props.onSelect({ props:this.props, });
+        }}>
         <View style={styles.centerBox}>
-          <Icon name={iconName} size={30} color={iconColor.color} />
+          <Icon name={iconName} size={30} color={iconColor.color} style={iconColor}/>
           <Text style={[iconColor,styles.tabBarText]}>{capitalize(this.props.name)}</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }

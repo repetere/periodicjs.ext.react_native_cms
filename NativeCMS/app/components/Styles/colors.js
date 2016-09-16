@@ -4,7 +4,7 @@ import {
 
 const styles = StyleSheet.create({
   active:{
-    color:'#dc143c', //'crimson',
+    color:'crimson', //'crimson',
   },
   active_bright:{
     color:'deeppink',
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     color:'#4682b4', //steelblue',
   },
   nav:{
-    color:'#708090', //slategrey
+    color:'dimgrey', //slategrey
   },
 });
 
