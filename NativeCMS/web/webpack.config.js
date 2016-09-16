@@ -1,9 +1,11 @@
 'use strict';
 
-var path = require('path');
+const path = require('path');
 var webpack = require('webpack');
 var HtmlPlugin = require('webpack-html-plugin');
 var HasteResolverPlugin = require('haste-resolver-webpack-plugin');
+const fs = require('fs-extra');
+const CUSTOM_NODE_MODULES = fs.readJSONSync(path.resolve(__dirname, '../content/config/custom_node_modules.json'));
 
 var IP = '0.0.0.0';
 var PORT = 3000;
@@ -78,14 +80,14 @@ module.exports = {
       test: /\.js?$/,
       loader: 'babel',
       query: {
-        presets: [ 'es2015', 'react', 'latest' ],
-        plugins: ["transform-class-properties","syntax-object-rest-spread","transform-object-rest-spread"]
+        presets: [ 'es2015', 'react', 'latest'],
+        plugins: CUSTOM_NODE_MODULES['babel-plugins'],
       },
       //add your modules here
-      include: [
-        path.join(ROOT_PATH, 'node_modules/react-native-vector-icons'),
-        path.join(ROOT_PATH, 'node_modules/react-native-elements')
-      ],
+      include:  CUSTOM_NODE_MODULES['react-native-components'].map((native_component)=>{
+        // console.log('list of mods',path.join(ROOT_PATH, `node_modules/${native_component.name}`))
+        return path.join(ROOT_PATH, `node_modules/${native_component.name}`);
+      }),
       // exclude:[/\.png$/gi]
     },{
       // Match woff2 in addition to patterns like .woff?v=1.1.1.

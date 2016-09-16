@@ -9,13 +9,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  centerBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   tabContent: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   tabText: {
-    color: 'white',
+    color: 'black',
   },
   welcome: {
     fontSize: 20,
@@ -27,6 +32,15 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  tabBar:{
+    backgroundColor:'whitesmoke',
+    borderTopWidth:1,
+    borderTopColor:'lightgray',
+    height:60,
+  },
+  tabBarText:{
+    fontSize:12,
+  }
 });
 
 export default styles;
