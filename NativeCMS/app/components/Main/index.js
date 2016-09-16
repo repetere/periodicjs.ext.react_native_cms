@@ -33,13 +33,13 @@ class Main extends Component{
     };
   }
   _onSelect(el){
-    console.log('on select: el.props',el.props);
+    // console.log('on select: el.props',el.props);
     this.setState({
       page:el.props.name,
     });
   }
   render() {
-    console.log('this.state',this.state)
+    // console.log('this.state',this.state)
     let self = this;
     return (
       <View style={styles.container}>
