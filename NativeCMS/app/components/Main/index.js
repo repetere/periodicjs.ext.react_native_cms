@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-import React, { Component } from 'react';
+import React, { Component, PropTypes, } from 'react';
 import { View, Platform, } from 'react-native';
 import Tabs from 'react-native-tabs';
 import AppConfigExtensions from '../../../content/config/extensions.json';
@@ -45,8 +45,9 @@ const getTabFromLocation = (location) => {
   }
 };
 
-class MainApp extends Component{ 
+class MainApp extends Component{
   constructor(props) {
+    console.log('MAIN APP CONSTRUCTOR CALLED')
     super(props);
     let tabs = AppConfigExtensions.standard.concat();//.splice(3, 0, AppConfigExtensions.more);
     tabs.splice(4, 0, AppConfigExtensions.more).slice(0, 4);
@@ -55,7 +56,19 @@ class MainApp extends Component{
       tabBarExtensions: tabs.slice(0,5),
     };
   }
-  _onSelect(el){
+  componentWillReceiveProps(nextProps) {
+    /**
+     *THIS WILL HANDLE BROWSER NAVIGATION
+    */
+    let incomingAppFromLocation = getTabFromLocation(getComponentFromRouterLocation(nextProps.location.pathname));
+    if (incomingAppFromLocation !== this.state.page) {
+      this.setState({
+        page: incomingAppFromLocation,
+      });
+    }
+  }
+  _onSelect(el) {
+    this.context.router.push(`/${el.props.name}`);
     // console.log('on select: el.props',el.props);
     this.setState({
       page:el.props.name,
@@ -85,9 +98,13 @@ class MainApp extends Component{
     );
   }
 }
+MainApp.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 class Main extends Component{
   render() {
+      console.log('this.props at MAIN APP', this.props);
     return (
       <Provider store={store}>
         <Router history={history}>

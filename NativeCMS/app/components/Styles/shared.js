@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  flexBox: {
+    flex: 1,
+  },
   tabContent: {
     flex: 1,
     alignItems: 'center',
