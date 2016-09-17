@@ -18,19 +18,20 @@ import styles from '../../components/Styles/shared';
 
 
 class Home extends Component {
-  constructor(){
-    super(...arguments);
-    this.state = {
-      ranattr:'ok',
-    };
-  }
+  // constructor(){
+  //   super(...arguments);
+  //   this.state = {
+  //     ranattr:'ok',
+  //   };
+  // }
   render() {
+    console.log('rendering Home','this.state',this.state,'this.props',this.props)
     return (
-      <View style={styles.container}>
+      // <View style={styles.container}>
         <Text style={styles.welcome}>
           Now Home to React Native oh finally ?!
         </Text>
-      </View>
+      // </View>
     );
   }
 }

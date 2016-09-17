@@ -4,23 +4,15 @@
  * @flow
  */
 import React, { Component } from 'react';
-import {
- StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Navigator,
-  TouchableHighlight
-} from 'react-native';
-import {
-  Button, SocialIcon, List, ListItem, ListView, PricingCard
-} from 'react-native-elements';
+import { StyleSheet, Text, View, ScrollView, } from 'react-native';
 import Tabs from 'react-native-tabs';
 import configExtensions from '../../../content/config/extensions.json';
-import StandardExtensions from './extensions';
+import AppExtensions from './extensions';
 import styles from '../Styles/shared';
 import TabIcon from '../AppTabs/TabIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
+import capitalize from 'capitalize';
+console.log('AppExtensions',AppExtensions)
 
 class Main extends Component{ 
   constructor(props){
@@ -41,8 +33,11 @@ class Main extends Component{
   render() {
     // console.log('this.state',this.state)
     let self = this;
+    let CurrentApp = AppExtensions[ capitalize(this.state.page) ];
+    console.log('CurrentApp', CurrentApp);
     return (
       <View style={styles.container}>
+        <CurrentApp />
         <Tabs selected={this.state.page} 
           style={styles.tabBar}
           onSelect={this._onSelect.bind(this)}>
@@ -54,14 +49,7 @@ class Main extends Component{
               onSelect={this._onSelect.bind(self)}
               />);
             })}
-            
         </Tabs>
-          <Text style={styles.welcome}>
-              Welcome to React Native
-          </Text>
-          <Text style={styles.instructions}>
-              Selected page: {this.state.page}
-          </Text>
       </View>
     );
   }

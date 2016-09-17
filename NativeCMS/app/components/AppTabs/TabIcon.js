@@ -18,11 +18,10 @@ class TabIcon extends Component{
   //   super(props);
   //   // this.state = {page:'second'};
   // }
-
   render() {
     let iconName = (this.props.selected) ? this.props.icon.initial : this.props.icon.initial; //this.props.icon.selected;
     let iconColor = (this.props.selected) ? colorStyles.active : colorStyles.nav;
-    console.log('iconColor',iconColor);
+    // console.log('iconColor',iconColor);
     return (
       <TouchableOpacity 
         onPress={()=>{
@@ -30,7 +29,7 @@ class TabIcon extends Component{
         }}>
         <View style={styles.centerBox}>
           <Icon name={iconName} size={30} color={iconColor.color} style={iconColor}/>
-          <Text style={[iconColor,styles.tabBarText]}>{capitalize(this.props.name)}</Text>
+          <Text style={[iconColor, styles.tabBarText]}>{capitalize(this.props.name)}</Text>
         </View>
       </TouchableOpacity>
     );
