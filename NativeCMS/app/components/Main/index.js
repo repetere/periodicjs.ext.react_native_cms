@@ -4,23 +4,54 @@
  * @flow
  */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, } from 'react-native';
+import { View, Platform, } from 'react-native';
 import Tabs from 'react-native-tabs';
-import configExtensions from '../../../content/config/extensions.json';
+import AppConfigExtensions from '../../../content/config/extensions.json';
+import AppConfigSettings from '../../../content/config/settings.json';
 import AppExtensions from './extensions';
 import styles from '../Styles/shared';
 import TabIcon from '../AppTabs/TabIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import capitalize from 'capitalize';
-console.log('AppExtensions',AppExtensions)
+import { createStore, } from 'redux';
+import { Provider } from 'react-redux';
+import combinedReducers from '../../reducers';
+import { Router, Route, browserHistory, hashHistory, createMemoryHistory, } from 'react-router';
+import { syncHistoryWithStore, } from 'react-router-redux';
 
-class Main extends Component{ 
-  constructor(props){
+const historySettings = { browserHistory, hashHistory, createMemoryHistory, };
+const store = createStore(combinedReducers);
+if (module.hot) {
+  // Enable Webpack hot module replacement for reducers
+  module.hot.accept(combinedReducers, () => {
+    const nextRootReducer = combinedReducers;
+    store.replaceReducer(nextRootReducer);
+  });
+}
+
+const history = (Platform.OS === 'web') ? syncHistoryWithStore(historySettings[ AppConfigSettings.routerHistory ], store) : createMemoryHistory(store);
+const getComponentFromRouterLocation = (location) => {
+  let locationArray = location.split('/');
+  let appName = (locationArray[ 0 ].length > 0) ? locationArray[ 0 ] : locationArray[ 1 ];
+  return capitalize(appName);
+};
+const getTabFromLocation = (location) => {
+  if (!location) {
+    return 'home';
+  } else if (AppExtensions[ location ]) {
+    return location.toLowerCase();
+  } else {
+    return 'home';
+  }
+};
+
+class MainApp extends Component{ 
+  constructor(props) {
     super(props);
-    let tabs = configExtensions.standard.concat();//.splice(3, 0, configExtensions.more);
-    tabs.splice(4, 0, configExtensions.more).slice(0,4);
+    let tabs = AppConfigExtensions.standard.concat();//.splice(3, 0, AppConfigExtensions.more);
+    tabs.splice(4, 0, AppConfigExtensions.more).slice(0, 4);
     this.state = { 
-      page:'home',
+      page: getTabFromLocation(getComponentFromRouterLocation(props.location.pathname)),
       tabBarExtensions: tabs.slice(0,5),
     };
   }
@@ -31,10 +62,10 @@ class Main extends Component{
     });
   }
   render() {
-    // console.log('this.state',this.state)
+    // console.log('this.state', this.state);
+    // console.log('this.props', this.props);
     let self = this;
-    let CurrentApp = AppExtensions[ capitalize(this.state.page) ];
-    console.log('CurrentApp', CurrentApp);
+    let CurrentApp = AppExtensions[ capitalize(this.state.page) ] || AppExtensions.Home;
     return (
       <View style={styles.container}>
         <CurrentApp />
@@ -55,5 +86,16 @@ class Main extends Component{
   }
 }
 
+class Main extends Component{
+  render() {
+    return (
+      <Provider store={store}>
+        <Router history={history}>
+          <Route path="*" component={MainApp} />
+        </Router>
+      </Provider>
+    );
+  }
+}
 
 export default Main;
