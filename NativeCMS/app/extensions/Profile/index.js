@@ -7,7 +7,8 @@
 import React, { Component } from 'react';
 import ReactNative, {
   StyleSheet,
-  // ScrollView,
+  ScrollView,
+  View,
   Text,
   Platform
 } from 'react-native';
@@ -17,7 +18,7 @@ import {
   // Card, SocialIcon, List, ListItem, ListView, PricingCard
 } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
-const ScrollView = Animatable.createAnimatableComponent(ReactNative.ScrollView);
+// const ScrollView = Animatable.createAnimatableComponent(ReactNative.ScrollView);
 
 
 class Profile extends Component {
@@ -29,10 +30,10 @@ class Profile extends Component {
   }
   render() {
     return (
-      <ScrollView animation="bounceInLeft" style={styles.flexBox}>
-      {/* <View animation="bounceInLeft" duration={800} delay={0} style={[styles.container]}> */}
+      <View animation="bounceInLeft" style={styles.container}>
+      {/* <ScrollView animation="bounceInLeft" duration={800} delay={0} style={[styles.container]}> */}
         <Text style={ styles.heading }>In the Profile app About to ANimiate</Text>		
-        <Animatable.Text animation="zoomInUp">Zoom me up, Scotty</Animatable.Text>
+        {/* <Animatable.Text animation="zoomInUp">Zoom me up, Scotty</Animatable.Text> */}
         <Button
         onPress={()=>{console.log('pressing button in profile')}}
           small
@@ -49,8 +50,8 @@ class Profile extends Component {
           iconRight
           icon={{ name: 'battery-full',  type: 'foundation', }}
           title="Battery Full" />
-      {/* </View> */}
-      </ScrollView>
+      {/* </ScrollView> */}
+      </View>
     );
   }
 }

@@ -16,29 +16,21 @@ import capitalize from 'capitalize';
 import { createStore, } from 'redux';
 import { Provider } from 'react-redux';
 import combinedReducers from '../../reducers';
-import { Router, Route, browserHistory, hashHistory, createMemoryHistory, } from 'react-router';
-import { syncHistoryWithStore, } from 'react-router-redux';
+import store from '../../stores';
+import { historySettings, getHistory, } from '../../routers/history';
+import { Router, Route, /*browserHistory, hashHistory, createMemoryHistory,*/ } from 'react-router';
+// import { syncHistoryWithStore, } from 'react-router-redux';
 
-const historySettings = { browserHistory, hashHistory, createMemoryHistory, };
-const store = createStore(combinedReducers);
-if (module.hot) {
-  // Enable Webpack hot module replacement for reducers
-  module.hot.accept(combinedReducers, () => {
-    const nextRootReducer = combinedReducers;
-    store.replaceReducer(nextRootReducer);
-  });
-}
-
-const history = (Platform.OS === 'web') ? syncHistoryWithStore(historySettings[ AppConfigSettings.routerHistory ], store) : createMemoryHistory(store);
+const history = getHistory(historySettings, AppConfigSettings, store);
 const getComponentFromRouterLocation = (location) => {
   let locationArray = location.split('/');
   let appName = (locationArray[ 0 ].length > 0) ? locationArray[ 0 ] : locationArray[ 1 ];
   return capitalize(appName);
 };
-const getTabFromLocation = (location) => {
+const getTabFromLocation = (extensions, location) => {
   if (!location) {
     return 'home';
-  } else if (AppExtensions[ location ]) {
+  } else if (extensions[ location ]) {
     return location.toLowerCase();
   } else {
     return 'home';
@@ -52,7 +44,7 @@ class MainApp extends Component{
     let tabs = AppConfigExtensions.standard.concat();//.splice(3, 0, AppConfigExtensions.more);
     tabs.splice(4, 0, AppConfigExtensions.more).slice(0, 4);
     this.state = { 
-      page: getTabFromLocation(getComponentFromRouterLocation(props.location.pathname)),
+      page: getTabFromLocation(AppExtensions, getComponentFromRouterLocation(props.location.pathname)),
       tabBarExtensions: tabs.slice(0,5),
     };
   }
@@ -60,7 +52,7 @@ class MainApp extends Component{
     /**
      *THIS WILL HANDLE BROWSER NAVIGATION
     */
-    let incomingAppFromLocation = getTabFromLocation(getComponentFromRouterLocation(nextProps.location.pathname));
+    let incomingAppFromLocation = getTabFromLocation(AppExtensions, getComponentFromRouterLocation(nextProps.location.pathname));
     if (incomingAppFromLocation !== this.state.page) {
       this.setState({
         page: incomingAppFromLocation,
@@ -88,6 +80,7 @@ class MainApp extends Component{
             {this.state.tabBarExtensions.map((ext)=>{
               return  (<TabIcon 
               key={ext.name} 
+              ext={ext}  
               name={ext.name} 
               icon={ext.icon}
               onSelect={this._onSelect.bind(self)}
@@ -104,7 +97,6 @@ MainApp.contextTypes = {
 
 class Main extends Component{
   render() {
-      console.log('this.props at MAIN APP', this.props);
     return (
       <Provider store={store}>
         <Router history={history}>
