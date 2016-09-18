@@ -14,76 +14,67 @@ import TabIcon from '../AppTabs/TabIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import capitalize from 'capitalize';
 import { createStore, } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, connect, } from 'react-redux';
 import combinedReducers from '../../reducers';
 import store from '../../stores';
+import actions from '../../actions';
 import { historySettings, getHistory, } from '../../routers/history';
 import { Router, Route, /*browserHistory, hashHistory, createMemoryHistory,*/ } from 'react-router';
-// import { syncHistoryWithStore, } from 'react-router-redux';
+import { getComponentFromRouterLocation, getTabFromLocation, } from '../../util/location';
 
 const history = getHistory(historySettings, AppConfigSettings, store);
-const getComponentFromRouterLocation = (location) => {
-  let locationArray = location.split('/');
-  let appName = (locationArray[ 0 ].length > 0) ? locationArray[ 0 ] : locationArray[ 1 ];
-  return capitalize(appName);
-};
-const getTabFromLocation = (extensions, location) => {
-  if (!location) {
-    return 'home';
-  } else if (extensions[ location ]) {
-    return location.toLowerCase();
-  } else {
-    return 'home';
-  }
-};
 
 class MainApp extends Component{
   constructor(props) {
-    console.log('MAIN APP CONSTRUCTOR CALLED')
+    console.log('MainApp props', props);
     super(props);
-    let tabs = AppConfigExtensions.standard.concat();//.splice(3, 0, AppConfigExtensions.more);
-    tabs.splice(4, 0, AppConfigExtensions.more).slice(0, 4);
-    this.state = { 
-      page: getTabFromLocation(AppExtensions, getComponentFromRouterLocation(props.location.pathname)),
-      tabBarExtensions: tabs.slice(0,5),
-    };
+    // let tabs = AppConfigExtensions.standard.concat();//.splice(3, 0, AppConfigExtensions.more);
+    // tabs.splice(4, 0, AppConfigExtensions.more).slice(0, 4);
+    // this.state = { 
+    //   page: getTabFromLocation(AppExtensions, getComponentFromRouterLocation(props.location.pathname)),
+    //   tabBarExtensions: tabs.slice(0,5),
+    // };
+  }
+  componentWillMount() {
+    /**
+     *THIS IS FOR LANDING ON A DIFFERENT PAGE
+    */
+    let pageLocation = getTabFromLocation(AppExtensions, getComponentFromRouterLocation(this.props.location.pathname));
+    if (pageLocation !== 'home') {
+      this.props.onChangePage(pageLocation);
+    }
   }
   componentWillReceiveProps(nextProps) {
     /**
      *THIS WILL HANDLE BROWSER NAVIGATION
     */
     let incomingAppFromLocation = getTabFromLocation(AppExtensions, getComponentFromRouterLocation(nextProps.location.pathname));
-    if (incomingAppFromLocation !== this.state.page) {
-      this.setState({
-        page: incomingAppFromLocation,
-      });
+    if (incomingAppFromLocation !== this.props.page.location) {
+      this.props.onChangePage(incomingAppFromLocation);
     }
   }
-  _onSelect(el) {
+  onChangePage(el) {
     this.context.router.push(`/${el.props.name}`);
-    // console.log('on select: el.props',el.props);
-    this.setState({
-      page:el.props.name,
-    });
+    this.props.onChangePage(el.props.name);
   }
   render() {
-    // console.log('this.state', this.state);
-    // console.log('this.props', this.props);
     let self = this;
-    let CurrentApp = AppExtensions[ capitalize(this.state.page) ] || AppExtensions.Home;
+    let CurrentApp = AppExtensions[ capitalize(this.props.page.location) ] || AppExtensions.Home;
     return (
       <View style={styles.container}>
         <CurrentApp />
-        <Tabs selected={this.state.page} 
+        <Tabs selected={this.props.page.location} 
           style={styles.tabBar}
-          onSelect={this._onSelect.bind(this)}>
-            {this.state.tabBarExtensions.map((ext)=>{
+          onSelect={this.onChangePage.bind(this)}>
+            {this.props.tabBarExtensions.map((ext)=>{
               return  (<TabIcon 
               key={ext.name} 
               ext={ext}  
               name={ext.name} 
               icon={ext.icon}
-              onSelect={this._onSelect.bind(self)}
+              location={this.props.location}
+              changePage={this.onChangePage.bind(this)}
+              onSelect={this.onChangePage.bind(self)}
               />);
             })}
         </Tabs>
@@ -95,12 +86,30 @@ MainApp.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => {
+  return {
+    page: state.page,
+    tabBarExtensions: state.tabBarExtensions,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangePage:(location) => store.dispatch(actions.pages.changePage(location)),
+    // onWithdraw:(amount) => bankStore.dispatch(bankActionCreators.withdrawFromAccount(amount)),
+    // onToggle:() => bankStore.dispatch(bankActionCreators.toggleInfo()),
+  };
+};
+
+const MainAppContainer = connect(mapStateToProps, mapDispatchToProps)(MainApp);
+
+
 class Main extends Component{
   render() {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route path="*" component={MainApp} />
+          <Route path="*" component={MainAppContainer} />
         </Router>
       </Provider>
     );

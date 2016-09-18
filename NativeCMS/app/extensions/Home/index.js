@@ -25,11 +25,12 @@ class Home extends Component {
   //   };
   // }
   render() {
-    console.log('rendering Home','this.state',this.state,'this.props',this.props)
+    // console.log('RENDERING HOME');
+    // console.log('rendering Home','this.state',this.state,'this.props',this.props)
     return (
       // <View style={styles.container}>
         <Text style={styles.welcome}>
-          Now Home to React Native oh finally ?!
+          Now Home to React Native in app/extensions/home ?!
         </Text>
       // </View>
     );

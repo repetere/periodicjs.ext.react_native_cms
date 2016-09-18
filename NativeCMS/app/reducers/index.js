@@ -1,9 +1,11 @@
 import { combineReducers, } from 'redux';
-// import Apps from '../../extensions/Apps';
-import { routerReducer, } from 'react-router-redux'
+import pageReducer from './pages';
+import tabBarExtensionReducer from './tabBarExtensions';
+import { routerReducer, } from 'react-router-redux';
 
 const NativeCMSReducer = combineReducers({
-  // ...reducers,
+  page: pageReducer,
+  tabBarExtensions: tabBarExtensionReducer,
   routing: routerReducer,
 });
 

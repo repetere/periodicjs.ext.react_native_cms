@@ -13,7 +13,6 @@ import colorStyles from '../Styles/colors';
 import Icon from '../Icons';
 // import Icon from 'react-native-vector-icons/Ionicons';
 import capitalize from 'capitalize';
-console.log('Icon', Icon);
 
 class TabIcon extends Component{ 
   constructor(props){
