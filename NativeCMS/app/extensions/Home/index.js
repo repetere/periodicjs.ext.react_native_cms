@@ -18,12 +18,9 @@ import styles from '../../components/Styles/shared';
 
 
 class Home extends Component {
-  // constructor(){
-  //   super(...arguments);
-  //   this.state = {
-  //     ranattr:'ok',
-  //   };
-  // }
+  constructor(){
+    super(...arguments);
+  }
   render() {
     // console.log('RENDERING HOME');
     // console.log('rendering Home','this.state',this.state,'this.props',this.props)
