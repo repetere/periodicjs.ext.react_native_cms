@@ -39,6 +39,9 @@ module.exports = {
     'webpack/hot/only-dev-server',
     config.paths.index,
   ],
+  devServer: {
+    headers: { "Access-Control-Allow-Origin": "*" }
+  },
   output: {
     path: path.join(__dirname, '../../public/web/output'),
     filename: 'bundle.js'
